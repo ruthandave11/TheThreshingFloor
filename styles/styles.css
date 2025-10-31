@@ -1,0 +1,262 @@
+@media (prefers-color-scheme: light){
+    :root {
+        --defaultRead:#000;
+        --defaultBack:#fff;
+        --defaultMedium:#fafafa;
+        --defaultFar:#f0f0f0;
+    }
+    body{
+        background-color: var(--defaultBack);
+        color: var(--defaultRead);
+    }
+}
+
+@media (prefers-color-scheme: dark){
+    :root {
+        --defaultRead:#fff;
+        --defaultMedium:#000;
+        --defaultBack:#070707;
+        --defaultFar:#0f0f0f;
+    }
+    body{
+        background-color: var(--defaultBack);
+        color: var(--defaultRead);
+    }
+    .desktop-logo, .mobile-logo, .footer-icons{
+        filter: invert(100);
+    }
+
+}
+
+html{
+    height: 100vh;
+}
+
+a{
+    text-decoration: none;
+    color: var(--defaultRead);
+}
+
+main{
+    background-color: var(--defaultMedium);
+    margin: 20vw;
+    min-height: 90vh;
+}
+
+header{
+    background-color: var(--defaultMedium);
+    padding:10px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    transition: ease-in-out 1s;
+    font-family: "Exo 2", sans-serif;
+}
+
+.desktop-header{ /*Used for making sure the desktop has the right header*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    height:calc(10svh);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.desktop-flex-header{
+    display: flex;
+    flex-direction: row;
+}
+
+.desktop-flex-header a{
+    margin: 0 20px;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+    font-size: 2em;
+}
+
+.desktop-flex-header a::after{
+	content:'';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: var(--defaultRead);
+	height: 2px;
+	transform: scaleX(0);
+	transform-origin: center;
+	transition: transform 0.3s ease;
+    box-shadow: 0 0 5px var(--defaultRead);
+}
+.desktop-flex-header a:hover::after{
+	transform: scaleX(1);
+}
+
+.desktop-logo{
+    width: 75px;
+    cursor: pointer;
+}
+
+.mobile-header{/*Used for making sure mobile has the right header*/
+    display: none;
+}
+
+.mobile-flex-header{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mobile-logo{
+	width:50px;
+}
+
+.mobile-menu {
+    height: 100%;
+    position: fixed;
+    width: 0;
+    top: 0;
+    left: 0;
+    background-color: var(--defaultBack);
+    overflow-x: hidden;
+    transition: 0.5s;
+    font-family: sans-serif;
+    z-index: 3;
+}
+.mobile-menu p {
+    padding: 12px 33px;
+    text-decoration: none;
+    font-size: 2em;
+    color: var(--defaultRead);
+}
+.title-text, .open-button,.close-button{
+    font-size: 4em;
+}
+
+.hidden{
+	opacity: 0;
+	filter:blur(2px);
+	transform: translateY(-15%);
+}
+.show{
+	filter:blur(0px);
+	transform: translateX(0);
+	opacity: 1;
+	transition:ease-in-out 1.5s;
+}
+
+.hero-text{
+	color: var(--accent);
+    box-sizing: border-box;
+	text-align: center;
+	font-size: 7em;
+	padding:5vw 0;
+    font-family: "Pacifico",sans-serif;
+}
+
+.text-header{
+    font-size: 2em;
+    text-align: center;
+    padding: 15px 15px 0;
+}
+
+.text{
+    font-size: 1.5em;
+    padding: 32px;
+    line-height: 1.7em;
+}
+
+.text a{
+    color: var(--defaultRead);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.text b{
+    font-weight: bold;
+}
+
+.active{
+    max-height: 200px;
+    padding: 10px;
+}
+
+footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-icons {
+    height: 35px;
+    padding: 15px;
+}
+
+.footer-icons.main-logo{
+    height: 150px;
+}
+
+@media (width <= 1600px) {
+    html{
+        font-size: 14px;
+    }
+}
+@media (width <= 1400px) {
+    main{
+        margin: 15vw;
+    }
+}
+@media (width <= 1200px) {
+    html{
+        font-size: 12px;
+    }
+    main{
+        margin: 10vw;
+    }
+}
+@media (width <= 1000px){
+    main{
+        margin: 0vw;
+    }
+    .text-header{
+        font-size: 2.5em;
+    }
+    .text{
+        font-size: 1.25em;
+    }
+}
+@media (width <= 700px){
+    html{
+        font-size: 10px;
+    }
+    .text-header{
+        font-size: 3em;
+    }
+    .text{
+        font-size: 1.5em;
+    }
+}
+@media (width <= 600px){
+    html{
+        font-size: 12px;
+    }
+    .desktop-header{
+        display: none;
+    }
+    .mobile-header{
+        display: block;
+    }
+    .text{
+        font-size: 2em;
+    }
+}
+@media (width <= 500px){
+    html{
+        font-size: 8px;
+    }
+}
