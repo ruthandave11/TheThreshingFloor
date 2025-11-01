@@ -7,8 +7,9 @@ function $(id){
 function checkHeadHeight(){
     var main = $("main");
     var header = $("header");
-    var h = window.getComputedStyle(header).getPropertyValue("height");
-    main.style.marginTop=h;
+    var h = header.getBoundingClientRect().height;
+    main.style.marginTop= h + "px";
+    console.log(h)
 }
 
 window.onload = function() {
