@@ -14,10 +14,6 @@
         <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="TheThreshingFloor" />
         <link rel="manifest" href="/images/favicon/site.webmanifest" />
-    </head>
-    <body>
-        <div id="header"></div>
-        
         <script>
             (async () => {
                 const [header, footer] = await Promise.all([
@@ -28,6 +24,9 @@
                 document.getElementById('footer').innerHTML = footer;
             })();
         </script>
+    </head>
+    <body>
+        <div id="header"></div>
         <script src="scripts/script.js"></script>
         
         <main id="main"></main>
