@@ -39,7 +39,7 @@ a{
 
 main{
     background-color: var(--defaultMedium);
-    margin: 20vw;
+    margin: 10vw;
     min-height: 90vh;
 }
 
