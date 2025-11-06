@@ -18,9 +18,9 @@ window.onload = function() {
 
 
 function openNav() {
-    document.getElementById("id-mobile-menu").style.width = "100%";
+    document.getElementById("id-mobile-menu").style.height = "100%";
 }
 
 function closeNav() {
-    document.getElementById("id-mobile-menu").style.width = "0";
+    document.getElementById("id-mobile-menu").style.height = "0";
 }
