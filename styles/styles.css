@@ -275,6 +275,11 @@ footer{
     text-align: center;
 }
 
+.outreach-image{
+    width: 70%;
+    border-radius: 15px;
+}
+
 @media (width >= 1600px) {
     html{
         font-size: 20px;
