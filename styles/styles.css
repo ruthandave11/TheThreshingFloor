@@ -69,6 +69,10 @@ header{
     font-family: var(--headerFont);
 }
 
+.desktop {
+    display: block;
+}
+
 .desktop-header{ /*Used for making sure the desktop has the right header*/
     display: flex;
     align-items: center;
@@ -120,7 +124,7 @@ header{
     cursor: pointer;
 }
 
-.mobile-header{/*Used for making sure mobile has the right header*/
+.mobile{/*Used for making sure mobile has the right header*/
     display: none;
 }
 
@@ -132,7 +136,7 @@ header{
 }
 
 .mobile-logo{
-	width:50px;
+	height:100px;
 }
 
 .mobile-menu {
@@ -209,10 +213,10 @@ footer{
     display: flex;
     flex-direction: row;
     align-items: top;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     font-family: var(--headerFont);
-    padding: 0 10%;
+    /* padding: 0 10%; */
     background-color: var(--defaultMedium);
 }
 
@@ -262,6 +266,15 @@ footer{
     box-sizing: border-box;
 }
 
+.pastor-image{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    text-align: center;
+}
+
 @media (width >= 1600px) {
     html{
         font-size: 20px;
@@ -292,11 +305,17 @@ footer{
     .desktop-header{
         display: none;
     }
-    .mobile-header{
+    .desktop{
+        display: none;
+    }
+    .mobile{
         display: block;
     }
     .hero-text{
         font-size: 3em;
+    }
+    .footer-icons.main-logo{
+        width: 150px;
     }
 }
 
