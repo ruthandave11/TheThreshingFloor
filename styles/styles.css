@@ -279,6 +279,55 @@ footer{
     width: 70%;
     border-radius: 15px;
 }
+form{
+    width: min(800px, 100%);
+    margin: auto;
+}
+
+label{
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea{
+    width: 100%;
+    margin: 5px;
+    padding: 2px;
+    font-family: var(--readFont);
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: var(--defaultAlternate);
+    color: var(--defaultRead);
+    border: 1px solid var(--defaultMedium);
+    border-radius: 2px;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+input:hover, textarea:hover{
+    transform: scale(1.01);
+}
+
+button{
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-weight: bold;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: var(--readFont);
+    background-color: var(--defaultMedium);
+    color: var(--defaultRead);
+    border: 1px solid var(--defaultMedium);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover{
+    transform: scale(1.05);
+}
 
 @media (width >= 1600px) {
     html{

@@ -85,16 +85,26 @@
     </header>
         <main id="main">
             <h1 class="hero-text">
-                SUPPORT US
+                CONTACT US
             </h1>
-            <h2 class="text-header">
-                Our PayPal
-            </h2>
+            <!-- modify this form HTML and place wherever you want your form -->
+            <form
+            action="https://formspree.io/f/mdkyygzg"
+            method="POST"
+            >
+            <label for="email">
+                Your Email:
+                <input type="email" name="email" id="email" required />
+            </label>
+            <label for="message">
+                Your Message:
+                <textarea name="message" id="message" required></textarea>
+            </label>
+            <!-- your other form fields go here -->
             <div style="text-align: center;">
-                <a href="https://www.paypal.com/qrcodes/managed/63a83dd8-7563-4cd8-b60c-208b33f2c7e4?utm_source=old_merchant_lp" target="_blank" style="display: inline-block;">
-                    <img src="/images/donate.png" alt="a QR code of our PayPal donate link" style="border-radius: 25px;">
-                </a>
+                <button type="submit" >Send</button>
             </div>
+            </form>
         </main>
         <footer>
             <div class="footer-div">
@@ -138,3 +148,4 @@
     </body>
     <script src="/scripts/script.js"></script>
 </html>
+ 
