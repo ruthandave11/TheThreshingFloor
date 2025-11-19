@@ -9,36 +9,18 @@
     /* This font would be all reading material anything in the main page. */
     --headerFont: "Faculty Glyph", serif;
     /* Font for the footer header and other things like that */
+    --defaultRead:#fff;
+    --defaultBackground:#000;
+    --defaultAlternate:#070707;
+    --defaultMedium:#0f0f0f;
+}
+body{
+    background-color: var(--defaultBackground);
+    color: var(--defaultRead);
 }
 
-@media (prefers-color-scheme: light){
-    :root {
-        --defaultRead:#000;
-        --defaultAlternate:#fff;
-        --defaultBackground:#fafafa;
-        --defaultMedium:#f0f0f0;
-    }
-    body{
-        background-color: var(--defaultAlternate);
-        color: var(--defaultRead);
-    }
-}
-
-@media (prefers-color-scheme: dark){
-    :root {
-        --defaultRead:#fff;
-        --defaultBackground:#000;
-        --defaultAlternate:#070707;
-        --defaultMedium:#0f0f0f;
-    }
-    body{
-        background-color: var(--defaultBackground);
-        color: var(--defaultRead);
-    }
-    .desktop-logo, .mobile-logo, .footer-icons{
-        filter: invert(100);
-    }
-
+.desktop-logo, .mobile-logo, .footer-icons{
+    filter: invert(100);
 }
 
 html{
