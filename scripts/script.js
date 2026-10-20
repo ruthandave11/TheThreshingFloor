@@ -3,24 +3,38 @@ function $(id){
     return document.getElementById(id);
 }
 
-
-function checkHeadHeight(){
-    var main = $("main");
-    var header = $("header");
-    var h = header.getBoundingClientRect().height;
-    main.style.marginTop= h + "px";
-    console.log(h)
+function checkHeadHeight() {
+    const main = document.querySelector("main");
+    const header = document.querySelector("header");
+    if (!main || !header) return;
+    main.style.marginTop = header.getBoundingClientRect().height + "px";
 }
 
-window.onload = function() {
-    checkHeadHeight();
-}
+Promise.all([
+    loadPartial('site-header', '/partials/header.html'),
+    loadPartial('site-footer', '/partials/footer.html'),
+]).then(checkHeadHeight);
+
+window.addEventListener("resize", checkHeadHeight);
 
 
 function openNav() {
-    document.getElementById("id-mobile-menu").style.height = "100%";
+    document.getElementById("id-mobile-menu").style.height = "100dvh";
 }
 
 function closeNav() {
     document.getElementById("id-mobile-menu").style.height = "0";
 }
+
+async function loadPartial(id, url) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    try {
+        const res = await fetch(url);
+        el.innerHTML = await res.text();
+    } catch (err) {
+        console.error(`Could not load ${url}`, err);
+    }
+}
+
+

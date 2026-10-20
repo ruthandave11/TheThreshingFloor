@@ -1,161 +1,179 @@
+/* ==========================================================================
+   THE THRESHING FLOOR - styles.css
+
+   TABLE OF CONTENTS
+   1.  Fonts
+   2.  Design tokens (CSS variables)
+   3.  Base / global elements
+   4.  Visibility helpers (desktop vs. mobile)
+   5.  Header & navigation
+   6.  Page content (headings, text, images)
+   7.  Footer
+   8.  Forms
+   9.  Responsive rules (largest to smallest breakpoint)
+
+   NOTE: Order matters in CSS. Rules lower in the file win when two rules
+   have the same specificity, so the responsive section stays at the bottom
+   so it can override everything above it.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. FONTS
+   Loads Cinzel Decorative, Faculty Glyphic, and Roboto from Google Fonts.
+   ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Faculty+Glyphic&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+
+/* ==========================================================================
+   2. DESIGN TOKENS
+   Change a value here and it updates everywhere it is used.
+   ========================================================================== */
 :root{
-    --specialtyFont: "Cinzel Decorative", serif;
-    /* The Threshing Floor font */
-    --subHeaderFont: Arial, sans-serif; 
-    /* Something with pizazz but not the specialty */
-    --readFont: 'Roboto', sans-serif; 
-    /* This font would be all reading material anything in the main page. */
-    --headerFont: "Faculty Glyph", serif;
-    /* Font for the footer header and other things like that */
-    --defaultRead:#fff;
-    --defaultBackground:#000;
-    --defaultAlternate:#070707;
-    --defaultMedium:#0f0f0f;
+    /* --- Fonts --- */
+    --specialtyFont: "Cinzel Decorative", serif;   /* The Threshing Floor font (hero titles) */
+    --subHeaderFont: Arial, sans-serif;            /* Something with pizazz but not the specialty */
+    --readFont: 'Roboto', sans-serif;              /* All reading material, anything in the main page */
+    --headerFont: "Faculty Glyphic", serif;          /* Header, footer headers, and things like that */
+
+    /* --- Colors --- */
+    --defaultRead:#fff;          /* Text color */
+    --defaultBackground:#000;    /* Page background */
+    --defaultAlternate:#070707;  /* Input backgrounds */
+    --defaultMedium:#0f0f0f;     /* Footer, buttons, borders */
 }
+
+
+/* ==========================================================================
+   3. BASE / GLOBAL ELEMENTS
+   Defaults that apply to the whole site.
+   ========================================================================== */
 body{
     background-color: var(--defaultBackground);
     color: var(--defaultRead);
 }
 
-.desktop-logo, .mobile-logo, .footer-icons{
-    filter: invert(100);
-}
-
-html{
-    height: 100vh;
-}
-
+/* Links: no underline, same color as body text */
 a{
     text-decoration: none;
     color: var(--defaultRead);
 }
 
+/* Main content area: the margin gives side padding on large screens
+   (shrunk in the responsive section) */
 main{
-    background-color: var(--defaultBackground);
-    margin: 10vw;
-    min-height: 90vh;
+    background-color: var(--defaultAlternate);
+    min-height: 80vh;
     font-family: var(--readFont);
 }
 
+/* Turns black logo/icon images white so they show on the dark background */
+.logo, .footer-icons{
+    filter: invert(100);
+}
+
+
+/* ==========================================================================
+   5. HEADER & NAVIGATION
+   ========================================================================== */
+
+/* --- Header bar: fixed to the top of the screen, above the content --- */
 header{
     background-color: var(--defaultBackground);
     padding:10px;
     position: fixed;
+    z-index: 2;
     top: 0;
     right: 0;
     left: 0;
-    z-index: 2;
-    transition: ease-in-out 1s;
     font-family: var(--headerFont);
 }
 
-.desktop {
-    display: block;
-}
-
-.desktop-header{ /*Used for making sure the desktop has the right header*/
+/* --- Inner header layout: logo on the left, links on the right --- */
+.header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
-    height:calc(10svh);
+    min-height:10svh;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
-.desktop-flex-header{
+/* --- Logo --- */
+.logo{
+    width: 75px;
+}
+
+/* --- Navigation link row --- */
+.flex-header{
     display: flex;
     flex-direction: row;
+    column-gap: clamp(2px, 5vw - 30px, 50px);
 }
 
-.desktop-flex-header a{
-    margin: 0 20px;
+.flex-header > *{
+    position: relative;     /* anchors the ::after bar */
+    font-size: 2em;         /* moved up from the link so the em units match */
+}
+
+.flex-header a{
+    display: block;         /* link fills the whole <p>, so the padding is clickable */
     padding: 5px;
+    color: inherit;         /* takes the color from the <p> so it flips on hover */
     cursor: pointer;
-    font-size: 2em;
-    position: relative;
     transition: color 0.3s ease;
 }
 
-.desktop-flex-header a:hover{
-	color: var(--defaultBackground);
+/* Hover effect, part 1: text turns black... */
+.flex-header > :hover{
+    color: var(--defaultBackground);
 }
 
-.desktop-flex-header a::after{
-	content:'';
-	position: absolute;
-	left: 0;
-	right: 0;
-    top:0;
-	background-color: var(--defaultRead);
-	height: 1.5em;
+/* Hover effect, part 2: ...as a white bar (hidden by scaleX(0)) sits behind it */
+.flex-header > ::after{
+    content: '';
+    position: absolute;
+    inset: 0;               /* top, right, bottom, left all 0, so the bar matches the link's size */
+    background-color: var(--defaultRead);
     z-index: -1;
-	transform: scaleX(0);
-	transform-origin: left;
-	transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
 }
 
-.desktop-flex-header a:hover::after{
-	transform: scaleX(1);
+/* Hover effect, part 3: the bar slides out from the left on hover */
+.flex-header > :hover::after{
+    transform: scaleX(1);
 }
 
-.desktop-logo{
-    width: 75px;
-    cursor: pointer;
-}
+/* (The mobile slide-down menu itself, .menu, is styled in section 9 because
+   it only exists on small screens.) */
 
-.mobile{/*Used for making sure mobile has the right header*/
+/* ==========================================================================
+   4. VISIBILITY HELPERS
+   Put .desktop on things that should only show on large screens and .mobile
+   on things that should only show on small screens. The switch happens at
+   the 760px breakpoint in section 9.
+   ========================================================================== */
+.mobile{
     display: none;
 }
 
-.mobile-flex-header{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: center;
-}
 
-.mobile-logo{
-	height:100px;
-}
+/* ==========================================================================
+   6. PAGE CONTENT
+   ========================================================================== */
 
-.mobile-menu {
-    height: 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0, 0.8);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-    transition: 0.5s;
-    z-index: 3;
-    text-align: center;
-}
+/* --- Headings --- */
 
-.mobile-menu p {
-    padding: 12px 33px;
-    /* text-decoration: none; */
-    font-size: 2em;
-    text-wrap: nowrap;
-}
-
-.title-text, .open-button,.close-button{
-    font-size: 2em;
-}
-
+/* Big page title at the top of each page */
 .hero-text{
-	color: var(--accent);
-    box-sizing: border-box;
 	text-align: center;
 	font-size: 4em;
 	padding:5vw 0;
-    /* font-weight: bold; */
     font-family: var(--specialtyFont);
 }
 
+/* Section heading inside the main content */
 .text-header{
     font-size: 1.5em;
     text-align: left;
@@ -164,6 +182,7 @@ header{
     font-weight: bold;
 }
 
+/* --- Body text --- */
 .text{
     font-size: 1em;
     padding: 32px;
@@ -171,8 +190,6 @@ header{
 }
 
 .text a{
-    color: var(--defaultRead);
-    text-decoration: none;
     font-weight: bold;
 }
 
@@ -180,21 +197,35 @@ header{
     font-weight: bold;
 }
 
+/* Puts a dash in front of list items directly inside .text */
 .text > li:before {
     content: "-";
-    color: var(--defaultRead);
-    text-indent: -5px;
 }
 
-.active{
-    max-height: 200px;
-    padding: 10px;
+/* --- Images --- */
+
+/* Round headshot (About page) */
+.pastor-image{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
+/* Rounded photo for outreach sections */
+.outreach-image{
+    width: 70%;
+    border-radius: 15px;
+}
+
+
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
+
+/* Footer bar: columns sit side by side and wrap on small screens */
 footer{
     display: flex;
-    flex-direction: row;
-    align-items: top;
     justify-content: space-around;
     flex-wrap: wrap;
     font-family: var(--headerFont);
@@ -202,14 +233,17 @@ footer{
     background-color: var(--defaultMedium);
 }
 
+/* One column of the footer (logo column, quick links column) */
 .footer-div {
-    display: inline-block;
     padding: 25px;
 }
 
-.footer-icons-div {
-    display: flex;
-    flex-direction: row;
+/* --- Quick Links column --- */
+.footer-header {
+    font-size: 1.2em;
+    text-align: left;
+    padding: 15px;
+    font-weight: bold;
 }
 
 .footer-text {
@@ -217,6 +251,7 @@ footer{
     padding: 12px;
 }
 
+/* Links grow slightly on hover (inline-block is needed for transform to work) */
 .footer-text a {
     display: inline-block;
     transition: transform 0.3s ease;
@@ -226,11 +261,9 @@ footer{
     transform: scale(1.1);
 }
 
-.footer-header {
-    font-size: 1.2em;
-    text-align: left;
-    padding: 15px;
-    font-weight: bold;
+/* --- Logo and social icons column --- */
+.footer-icons-div {
+    display: flex;
 }
 
 .footer-icons {
@@ -243,29 +276,24 @@ footer{
     transform: scale(1.1);
 }
 
+/* The large footer logo (must stay below .footer-icons so its width wins) */
 .footer-icons.main-logo{
     width: 300px;
     box-sizing: border-box;
 }
 
-.pastor-image{
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-    text-align: center;
-}
 
-.outreach-image{
-    width: 70%;
-    border-radius: 15px;
-}
+/* ==========================================================================
+   8. FORMS (Contact page)
+   ========================================================================== */
+
+/* Form container: centered, max 800px wide */
 form{
     width: min(800px, 100%);
     margin: auto;
 }
 
+/* Field labels sit above their inputs */
 label{
     display: block;
     margin-top: 15px;
@@ -273,12 +301,13 @@ label{
     font-weight: bold;
 }
 
+/* Text inputs and the message box */
 input, textarea{
     width: 100%;
+    box-sizing: border-box;
     margin: 5px;
     padding: 2px;
     font-family: var(--readFont);
-    box-sizing: border-box;
     font-size: 1em;
     background-color: var(--defaultAlternate);
     color: var(--defaultRead);
@@ -292,11 +321,11 @@ input:hover, textarea:hover{
     transform: scale(1.01);
 }
 
+/* Send button */
 button{
     margin-top: 15px;
     padding: 10px 20px;
     font-weight: bold;
-    box-sizing: border-box;
     font-size: 1em;
     font-family: var(--readFont);
     background-color: var(--defaultMedium);
@@ -311,24 +340,41 @@ button:hover{
     transform: scale(1.05);
 }
 
+
+/* ==========================================================================
+   9. RESPONSIVE RULES
+   Listed from the largest screen to the smallest. Keep this section at the
+   bottom of the file so these rules override the ones above.
+   ========================================================================== */
+
+/* --- Extra large screens (1600px and up): bigger text --- */
 @media (width >= 1600px) {
+    main{
+        margin: 0 15vw;
+    }
     html{
         font-size: 20px;
     }
 }
+
+/* --- Laptops (1400px and below): wider side margins, slightly smaller text --- */
 @media (width <= 1400px) {
     main{
-        margin: 15vw;
+        margin: 0 15vw;
     }
     html{
         font-size: 18px;
     }
 }
+
+/* --- Small laptops (1200px and below): narrower side margins --- */
 @media (width <= 1200px) {
     main{
-        margin: 10vw;
+        margin: 0 10vw ;
     }
 }
+
+/* --- Tablets (1000px and below): smaller text, content goes edge to edge --- */
 @media (width <= 1000px){
     html{
         font-size: 16px;
@@ -337,21 +383,74 @@ button:hover{
         margin: 0vw;
     }
 }
-@media (width <= 600px){
-    .desktop-header{
-        display: none;
-    }
+
+/* --- Phones (760px and below): switch to the mobile header and menu --- */
+@media (width <= 760px){
+
+    /* Swap which header is visible */
     .desktop{
         display: none;
+        overflow: hidden;
     }
     .mobile{
         display: block;
     }
+
+    /* Smaller title and footer logo */
     .hero-text{
         font-size: 3em;
     }
     .footer-icons.main-logo{
         width: 150px;
     }
-}
 
+    /* Mobile header row: hamburger, logo, spacing */
+    .flex-header{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+    }
+
+    .flex-header >:hover{
+        color: var(--defaultRead);
+    }
+
+    .flex-header > ::after{
+        display: none;
+    }
+
+    .logo{
+        width:initial;
+        height:100px;
+    }
+    
+    /* Full-screen slide-down menu (starts at height 0, openNav() expands it) */
+    .menu {
+        height: 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        -webkit-backdrop-filter: blur(10px);   /* Safari needs the prefix */
+        backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.8);  /* the old rule you removed; a backing color hides the blur's repaint */
+        will-change: height;  
+        z-index: 1;
+        overflow: hidden;
+        transition: 0.5s;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .menu > p:has(> .close-button) {
+        margin-top: 5svh;
+    }
+
+    .menu > p {
+        text-wrap: nowrap;
+    }
+}
