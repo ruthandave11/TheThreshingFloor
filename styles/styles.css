@@ -1,3 +1,5 @@
+/* Commented by AI for your convenience ;) */
+
 /* ==========================================================================
    THE THRESHING FLOOR - styles.css
 
@@ -63,8 +65,13 @@ a{
    (shrunk in the responsive section) */
 main{
     background-color: var(--defaultAlternate);
+    padding: 3svh 0;
     min-height: 80vh;
     font-family: var(--readFont);
+}
+
+#main {
+    transition: margin-top 0.5s ease-out;
 }
 
 /* Turns black logo/icon images white so they show on the dark background */
@@ -174,10 +181,9 @@ header{
 }
 
 /* Section heading inside the main content */
-.text-header{
+.sub-header{
     font-size: 1.5em;
-    text-align: left;
-    padding: 15px 15px 0;
+    padding: 15px;
     font-family: var(--subHeaderFont);
     font-weight: bold;
 }
@@ -202,6 +208,16 @@ header{
     content: "-";
 }
 
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+.center {
+    text-align: center;
+}
+
 /* --- Images --- */
 
 /* Round headshot (About page) */
@@ -216,6 +232,11 @@ header{
 .outreach-image{
     width: 70%;
     border-radius: 15px;
+}
+
+.qr {
+    border-radius: 25px;
+    width: min(200px, 80%)
 }
 
 
